@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>El Rey — El Agua que Gobierna</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- CLIENT VIEW -->
+  <div id="client-view">
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="logo">
+          <!-- Placeholder for logo if needed, or just text -->
+          <h2 style="color:white; margin:0;">👑 El Rey</h2>
+        </div>
+        <nav class="nav-links">
+          <button onclick="scrollToSection('hero')">Inicio</button>
+          <button onclick="scrollToSection('nosotros')">Nosotros</button>
+          <button onclick="scrollToSection('menu')">Productos</button>
+          <button onclick="scrollToSection('reserva')">Compra</button>
+          <button onclick="scrollToSection('opiniones')">Opiniones</button>
+          <button onclick="scrollToSection('contacto')">Contacto</button>
+          <button id="btn-client-login">Admin</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div id="hero" class="hero-section">
+      <div class="hero-slider">
+        <div class="slide active" style="background-image:url('../assets/hero_water_royal.png')"></div>
+        <div class="slide" style="background-image:url('../assets/hero_water_lifestyle.png')"></div>
+        <div class="slide" style="background-image:url('../assets/botellade8.5l.jpg')"></div>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">El Rey</h1>
+        <p class="hero-subtitle">El Agua que Gobierna la Hidratación</p>
+        <button class="btn btn-accent" onclick="scrollToSection('menu')"
+          style="font-size:1.2rem; padding:1rem 2rem;">HAZ TU PEDIDO</button>
+      </div>
+    </div>
+
+    <!-- Nosotros Section -->
+    <section id="nosotros" class="content-section blur-bg">
+      <div class="container">
+        <h2 class="section-title">👑 Nuestra Historia</h2>
+        <div style="text-align:center; max-width:800px; margin:0 auto; font-size:1.1rem; line-height:1.8;">
+          <p>En “El Rey”, no vendemos simple agua: vendemos pureza embotellada digna de la realeza.</p>
+          <p>Nacimos con la misión de ofrecer hidratación premium a todas las coronas sedientas del país.</p>
+          <p style="font-weight:bold; margin-top:1rem;">Si tienes boca, eres parte del reino.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Promociones Section -->
+    <section id="promociones" class="content-section"
+      style="background: linear-gradient(to bottom, #fff, var(--bg-body));">
+      <div class="container">
+        <h2 class="section-title">🔥 Promociones de la Semana</h2>
+        <p style="text-align:center; margin-bottom:2rem; color:var(--text-muted);">Sí, hasta el agua tiene ofertas… así
+          que aprovecha antes de que el trono se seque.</p>
+        <div id="promos-grid" class="menu-grid"></div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="content-section">
+      <div class="container">
+        <h2 class="section-title">💧 Nuestros Productos</h2>
+        <div id="menu-grid" class="menu-grid"></div>
+      </div>
+    </section>
+
+    <section class="parallax-section" style="background-image:url('../assets/botella de 8.5l.jpg')">
+    </section>
+
+    <!-- Reserva Section -->
+    <section id="reserva" class="content-section">
+      <div class="container">
+        <h2 class="section-title">👑 Reserva tu Pedido</h2>
+        <p style="text-align:center; margin-bottom:2rem;">(No reservamos mesas, pero sí litros de grandeza líquida)</p>
+        <div class="form-card">
+          <form id="reservation-form">
+            <div class="form-group">
+              <label>Nombre Completo</label>
+              <input type="text" id="res-name" required>
+            </div>
+            <div class="form-group">
+              <label>Fecha de Entrega</label>
+              <input type="date" id="res-date" required>
+            </div>
+            <div class="form-group">
+              <label>Hora Aproximada</label>
+              <input type="time" id="res-time" required>
+            </div>
+            <div class="form-group">
+              <label>Cantidad de Productos</label>
+              <input type="number" id="res-pax" min="1" max="100" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%">Confirmar Pedido</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Opiniones Section -->
+    <section id="opiniones" class="content-section">
+      <div class="container">
+        <h2 class="section-title">⭐ Lo que dice el Reino</h2>
+        <div id="reviews-list" class="reviews-grid"></div>
+        <div class="form-card" style="text-align:center;">
+          <h3>Déjanos tu opinión</h3>
+          <form id="review-form" style="margin-top:1rem;">
+            <div class="form-group">
+              <input type="text" id="rev-name" placeholder="Nombre" required>
+            </div>
+            <div class="form-group">
+              <textarea id="rev-text" placeholder="Comentario..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label>Rating</label>
+              <select name="rating" required>
+                <option value="5">5 - Hidratación divina 👑💧</option>
+                <option value="4">4 - Muy refrescante</option>
+                <option value="3">3 - Cumple su función</option>
+                <option value="2">2 - Podría mejorar</option>
+                <option value="1">1 - No me gustó</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-outline">Publicar</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto Section (Footer) -->
+    <footer id="contacto" class="content-section">
+      <div class="container">
+        <h2 class="section-title">📞 Contáctanos</h2>
+        <div style="display:flex; flex-wrap:wrap; gap:2rem; justify-content:center;">
+          <div class="info-card" style="flex:1; min-width:300px; text-align:center;">
+            <h3>📍 Ubicación</h3>
+            <p>Av. Las Aguas Reales 123 – Lima</p>
+          </div>
+          <div class="info-card" style="flex:1; min-width:300px; text-align:center;">
+            <h3>📞 Teléfonos</h3>
+            <p>900 000 001 / 900 000 002</p>
+          </div>
+          <div class="info-card" style="flex:1; min-width:300px; text-align:center;">
+            <h3>🕒 Horarios</h3>
+            <p>Lunes a Domingo: 8:00 AM – 8:00 PM</p>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:3rem; color:rgba(255,255,255,0.5); font-size:0.9rem;">
+          &copy; 2025 El Rey. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- Floating Cart -->
+    <div style="position:fixed; bottom:2rem; right:2rem; z-index:90;">
+      <button id="btn-float-cart" class="btn btn-primary"
+        style="box-shadow: 0 4px 12px rgba(0,0,0,0.3); padding: 1rem 2rem;">
+        🛒 Ver Pedido (<span id="cart-count">0</span>)
+      </button>
+    </div>
+  </div>
+
+  <!-- ADMIN LOGIN -->
+  <div id="login-view" class="hidden">
+    <div class="login-container">
+      <div class="login-box">
+        <h2 style="color:var(--primary); margin-bottom:1rem;">Intranet El Rey</h2>
+        <input type="text" id="login-user" placeholder="Usuario (admin)">
+        <input type="password" id="login-pass" placeholder="Contraseña (admin)">
+        <button id="btn-do-login" class="btn btn-primary" style="width:100%">Ingresar</button>
+        <button id="btn-back-home" class="btn btn-outline" style="width:100%; margin-top:1rem;">Volver al
+          Inicio</button>
+        <p style="text-align:center; margin-top:1rem;">¡Larga vida al Rey! 👑</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div id="admin-view" class="hidden">
+    <div class="admin-layout">
+      <aside class="sidebar">
+        <h3>Admin El Rey</h3>
+        <button id="tab-caja" class="active">💰 Caja</button>
+        <button id="tab-comandas">📋 Comandas</button>
+        <button id="tab-reservas">📅 Pedidos</button>
+        <button id="tab-products">📦 Productos</button>
+        <button id="tab-promos">🔥 Promociones</button>
+        <button id="btn-logout" style="margin-top:2rem; color:#ff6b6b;">🚪 Cerrar Sesión</button>
+      </aside>
+      <main class="admin-content">
+        <div id="view-caja">
+          <h2 style="margin-bottom:2rem;">Registro de Ventas</h2>
+          <div id="admin-transactions"></div>
+        </div>
+        <div id="view-comandas" class="hidden">
+          <h2 style="margin-bottom:2rem;">Despacho de Pedidos</h2>
+          <div id="admin-comandas"></div>
+        </div>
+        <div id="view-reservas" class="hidden">
+          <h2 style="margin-bottom:2rem;">Pedidos Web</h2>
+          <div id="admin-reservas-list"></div>
+        </div>
+
+        <div id="view-products" class="hidden">
+          <h2 style="margin-bottom:2rem;">Gestionar Productos</h2>
+          <div class="form-card" style="margin-bottom:2rem; border-top:none; padding:1.5rem;">
+            <h3>Nuevo Producto</h3>
+            <form id="product-form">
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+                <div class="form-group">
+                  <input type="text" id="prod-name" placeholder="Nombre (ej. Bidón 20L)" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" id="prod-desc" placeholder="Descripción corta" required>
+                </div>
+                <div class="form-group">
+                  <input type="number" id="prod-price" placeholder="Precio Unidad (S/)" step="0.10" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" id="prod-img" placeholder="URL Imagen (opcional)">
+                </div>
+
+                <!-- Tiers -->
+                <div style="grid-column: span 2; margin-top:1rem; border-top:1px solid #eee; padding-top:1rem;">
+                  <h4>Ofertas por Volumen (Opcional)</h4>
+                </div>
+
+                <!-- Tier 1 -->
+                <div class="form-group"><input type="text" id="tier1-label" placeholder="Tier 1: Label (ej. 10+1)">
+                </div>
+                <div class="form-group" style="display:flex; gap:0.5rem;">
+                  <input type="number" id="tier1-price" placeholder="Precio" step="0.10">
+                  <input type="number" id="tier1-old" placeholder="Antes" step="0.10">
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="form-group"><input type="text" id="tier2-label" placeholder="Tier 2: Label (ej. 20+2)">
+                </div>
+                <div class="form-group" style="display:flex; gap:0.5rem;">
+                  <input type="number" id="tier2-price" placeholder="Precio" step="0.10">
+                  <input type="number" id="tier2-old" placeholder="Antes" step="0.10">
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="form-group"><input type="text" id="tier3-label" placeholder="Tier 3: Label (ej. Mayorista)">
+                </div>
+                <div class="form-group" style="display:flex; gap:0.5rem;">
+                  <input type="number" id="tier3-price" placeholder="Precio" step="0.10">
+                  <input type="number" id="tier3-old" placeholder="Antes" step="0.10">
+                </div>
+
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Guardar Producto</button>
+            </form>
+          </div>
+          <div id="admin-products-list"></div>
+        </div>
+
+        <div id="view-promos" class="hidden">
+          <h2 style="margin-bottom:2rem;">Gestionar Promociones</h2>
+          <div class="form-card" style="margin-bottom:2rem; border-top:none; padding:1.5rem;">
+            <h3>Nueva Promoción</h3>
+            <form id="promo-form">
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+                <div class="form-group">
+                  <input type="text" id="promo-title" placeholder="Título (ej. Oferta Real)" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" id="promo-desc" placeholder="Descripción corta" required>
+                </div>
+                <div class="form-group">
+                  <input type="number" id="promo-price" placeholder="Precio Oferta (S/)" step="0.10" required>
+                </div>
+                <div class="form-group">
+                  <input type="number" id="promo-old-price" placeholder="Precio Normal (S/)" step="0.10">
+                </div>
+                <div class="form-group">
+                  <input type="text" id="promo-img" placeholder="URL Imagen (opcional)">
+                </div>
+                <div class="form-group">
+                  <input type="text" id="promo-duration" placeholder="Duración (ej. Solo por esta semana)" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Crear Promoción</button>
+            </form>
+          </div>
+          <div id="admin-promos-list"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODALS -->
+  <div id="cart-modal" class="modal-overlay hidden">
+    <div class="receipt" style="width: 400px;">
+      <div class="receipt-header">
+        <h3>Tu Pedido Real</h3>
+      </div>
+      <div id="cart-items-list"></div>
+      <div class="receipt-total" id="cart-total"></div>
+      <div style="margin-top:1rem; display:flex; gap:1rem;">
+        <button id="btn-close-cart" class="btn btn-outline" style="flex:1">Seguir Pidiendo</button>
+        <button id="btn-place-order" class="btn btn-primary" style="flex:1">Confirmar Pedido</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ticket-modal" class="modal-overlay hidden">
+    <div class="receipt">
+      <div class="receipt-header">
+        <h3>BOLETA DE VENTA</h3>
+        <p>RUC: 20123456789</p>
+        <p>Agua El Rey S.A.C.</p>
+        <small id="ticket-id"></small>
+      </div>
+      <div id="ticket-content"></div>
+      <p style="text-align:center; margin-top:1rem;">¡Gracias por su preferencia! 👑</p>
+      <button onclick="closeModal('ticket-modal')" class="btn btn-primary"
+        style="width:100%; margin-top:1rem;">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Template -->
+  <template id="menu-card-tpl">
+    <div class="menu-card">
+      <div class="menu-img"></div>
+      <div class="menu-body">
+        <h4 class="menu-title"></h4>
+        <p class="menu-desc"></p>
+        <div class="menu-footer">
+          <span class="menu-price"></span>
+          <button class="btn btn-outline add-btn">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+
+</body>
+
+</html>
