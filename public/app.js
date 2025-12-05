@@ -235,34 +235,100 @@ function renderCartModal() {
   if (state.cart.length === 0) {
     list.innerHTML = '<p>Carrito vacío</p>';
     totalEl.textContent = '';
+    $('#btn-place-order').style.display = 'none';
     return;
   }
 
+  // Ensure buttons are visible
+  $('#btn-place-order').style.display = 'block';
+
   let total = 0;
-  state.cart.forEach(i => {
+  state.cart.forEach((i, idx) => {
     total += i.price * i.qty;
     const div = document.createElement('div');
     div.style.display = 'flex';
     div.style.justifyContent = 'space-between';
+    div.style.alignItems = 'center';
     div.style.marginBottom = '0.5rem';
+    div.style.paddingBottom = '0.5rem';
+    div.style.borderBottom = '1px solid #eee';
+    
     div.innerHTML = `
-      <span>${i.name} x ${i.qty}</span>
-      <span>S/ ${(i.price * i.qty).toFixed(2)}</span>
+      <div style="flex:1">
+        <div style="font-weight:bold;">${i.name}</div>
+        <div style="font-size:0.9rem; color:#666;">S/ ${i.price.toFixed(2)} c/u</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <button class="btn btn-outline" style="padding:0.2rem 0.5rem; min-width:30px;" onclick="updateItemQty(${idx}, -1)">-</button>
+        <span style="font-weight:bold; min-width:20px; text-align:center;">${i.qty}</span>
+        <button class="btn btn-outline" style="padding:0.2rem 0.5rem; min-width:30px;" onclick="updateItemQty(${idx}, 1)">+</button>
+      </div>
+      <div style="min-width:60px; text-align:right; font-weight:bold;">
+        S/ ${(i.price * i.qty).toFixed(2)}
+      </div>
+      <button class="btn btn-outline" style="margin-left:0.5rem; border-color:#ff6b6b; color:#ff6b6b; padding:0.2rem 0.5rem;" onclick="removeItem(${idx})">🗑️</button>
     `;
     list.appendChild(div);
   });
   totalEl.textContent = 'Total: S/ ' + total.toFixed(2);
+
+  // Remove Clear Cart Button if exists (cleanup from previous version)
+  const clearBtn = $('#btn-clear-cart');
+  if (clearBtn) {
+    clearBtn.remove();
+  }
 }
 
-function placeOrder() {
-  if (state.cart.length === 0) return;
+window.updateItemQty = function(index, delta) {
+  const item = state.cart[index];
+  if (!item) return;
+  
+  item.qty += delta;
+  if (item.qty <= 0) {
+    // If quantity goes to 0, we can remove it or keep it at 1?
+    // Usually - button at 1 removes it.
+    state.cart.splice(index, 1);
+  }
+  updateCartCount();
+  renderCartModal();
+};
 
+window.removeItem = function(index) {
+  if (confirm('¿Eliminar este producto del pedido?')) {
+    state.cart.splice(index, 1);
+    updateCartCount();
+    renderCartModal();
+  }
+};
+
+// Replaced placeOrder with openCheckout
+function openCheckout() {
+  if (state.cart.length === 0) return;
+  $('#cart-modal').classList.add('hidden');
+  $('#checkout-modal').classList.remove('hidden');
+}
+
+function finalizeOrder(customerData) {
   const total = state.cart.reduce((s, i) => s + i.price * i.qty, 0);
   const txId = 'TX-' + Date.now().toString().slice(-6);
 
   // Create Transaction & Comanda
-  const tx = { id: txId, items: [...state.cart], total, date: new Date().toISOString() };
-  const comanda = { id: 'CMD-' + Date.now().toString().slice(-6), txId, items: state.cart.map(i => ({ name: i.name, qty: i.qty })), status: 'pendiente', time: new Date().toISOString() };
+  const tx = { 
+    id: txId, 
+    items: [...state.cart], 
+    total, 
+    date: new Date().toISOString(),
+    customer: customerData 
+  };
+  
+  const comanda = { 
+    id: 'CMD-' + Date.now().toString().slice(-6), 
+    txId, 
+    items: state.cart.map(i => ({ name: i.name, qty: i.qty })), 
+    status: 'pendiente', 
+    time: new Date().toISOString(),
+    customer: customerData
+  };
 
   state.transactions.unshift(tx);
   state.comandas.push(comanda);
@@ -273,7 +339,7 @@ function placeOrder() {
   // Clear Cart
   state.cart = [];
   updateCartCount();
-  closeModal('cart-modal');
+  closeModal('checkout-modal');
 
   // Refresh Admin Views if active
   if (state.currentUser === 'admin') {
@@ -290,13 +356,17 @@ function showTicket(tx) {
       <p>RUC: 20123456789</p>
       <p>Mi Barrunto S.A.C.</p>
       <small>Ticket #${tx.id}</small>
+      <div style="margin-top:0.5rem; text-align:left; border-top:1px dashed #ccc; padding-top:0.5rem;">
+        <strong>Cliente:</strong> ${tx.customer.name}<br>
+        <strong>Teléfono:</strong> ${tx.customer.phone}
+      </div>
     <div class="receipt-items">
       ${tx.items.map(i => `<div style="display:flex; justify-content:space-between;"><span>${i.qty} x ${i.name}</span> <span>${(i.price * i.qty).toFixed(2)}</span></div>`).join('')}
     </div>
     <div class="receipt-total">TOTAL: S/ ${tx.total.toFixed(2)}</div>
     <div style="text-align:center; margin-top:1rem; font-size:0.8rem;">¡Gracias por su preferencia! 👑</div>
   `;
-  $('#ticket-id').textContent = ''; // Cleared as it's in header now
+  $('#ticket-id').textContent = ''; 
   $('#ticket-modal').classList.remove('hidden');
 }
 
@@ -461,11 +531,15 @@ function renderAdminCaja() {
   }
   container.innerHTML = state.transactions.map(t => `
     <div style="background:white; padding:1rem; margin-bottom:1rem; border-radius:8px; border:1px solid #eee;">
-      <div style="display:flex; justify-content:space-between;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
         <strong>${t.id}</strong>
-        <span>S/ ${t.total.toFixed(2)}</span>
+        <span style="font-weight:bold; color:green;">S/ ${t.total.toFixed(2)}</span>
       </div>
-      <small>${new Date(t.date).toLocaleString()}</small>
+      <div style="font-size:0.9rem; margin-bottom:0.5rem;">
+        <strong>Cliente:</strong> ${t.customer ? t.customer.name : 'Anónimo'}<br>
+        <strong>Tel:</strong> ${t.customer ? t.customer.phone : '-'}
+      </div>
+      <small style="color:#666;">${new Date(t.date).toLocaleString()}</small>
     </div>
   `).join('');
 }
@@ -478,12 +552,17 @@ function renderAdminComandas() {
   }
   container.innerHTML = state.comandas.map(c => `
     <div style="background:white; padding:1rem; margin-bottom:1rem; border-radius:8px; border-left:4px solid ${c.status === 'listo' ? 'green' : 'orange'};">
-      <div style="display:flex; justify-content:space-between;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
         <strong>${c.id}</strong>
         <span style="text-transform:uppercase; font-size:0.8rem; font-weight:bold; color:${c.status === 'listo' ? 'green' : 'orange'}">${c.status}</span>
       </div>
-      <ul>${c.items.map(i => `<li>${i.name} x ${i.qty}</li>`).join('')}</ul>
-      ${c.status !== 'listo' ? `<button onclick="markReady('${c.id}')" class="btn btn-primary" style="padding:0.5rem; font-size:0.8rem;">Marcar Listo</button>` : ''}
+      <div style="font-size:0.9rem; margin-bottom:0.5rem; padding-bottom:0.5rem; border-bottom:1px dashed #eee;">
+        <strong>Cliente:</strong> ${c.customer ? c.customer.name : 'Anónimo'}<br>
+        <strong>Tel:</strong> ${c.customer ? c.customer.phone : '-'}
+         ${c.customer && c.customer.address ? `<br><strong>Dir:</strong> ${c.customer.address}` : ''}
+      </div>
+      <ul style="margin:0.5rem 0; padding-left:1.2rem;">${c.items.map(i => `<li>${i.name} x ${i.qty}</li>`).join('')}</ul>
+      ${c.status !== 'listo' ? `<button onclick="markReady('${c.id}')" class="btn btn-primary" style="padding:0.5rem; font-size:0.8rem; width:100%;">Marcar Listo</button>` : ''}
     </div>
   `).join('');
 }
@@ -528,7 +607,23 @@ function setupInteractions() {
   });
 
   $('#btn-close-cart').addEventListener('click', () => closeModal('cart-modal'));
-  $('#btn-place-order').addEventListener('click', placeOrder);
+  // Changed listener from placeOrder to openCheckout
+  $('#btn-place-order').addEventListener('click', openCheckout);
+
+  // Checkout Form Listener
+  const checkoutForm = $('#checkout-form');
+  if (checkoutForm) {
+    checkoutForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = {
+        name: $('#checkout-name').value,
+        phone: $('#checkout-phone').value,
+        address: $('#checkout-address').value
+      };
+      finalizeOrder(data);
+      checkoutForm.reset();
+    });
+  }
 
   // Reservation form submit
   const reservationForm = $('#reservation-form');

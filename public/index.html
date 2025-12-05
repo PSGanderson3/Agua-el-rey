@@ -332,6 +332,35 @@
     </div>
   </div>
 
+  <!-- CHECKOUT MODAL -->
+  <div id="checkout-modal" class="modal-overlay hidden">
+    <div class="receipt" style="width: 400px;">
+      <div class="receipt-header">
+        <h3>Datos de Contacto</h3>
+        <p>Para coordinar la entrega</p>
+      </div>
+      <form id="checkout-form" style="margin-top:1rem;">
+        <div class="form-group">
+          <label>Nombre y Apellido</label>
+          <input type="text" id="checkout-name" required placeholder="Ej. Juan Pérez">
+        </div>
+        <div class="form-group">
+          <label>Teléfono / Celular</label>
+          <input type="tel" id="checkout-phone" required placeholder="Ej. 999 888 777">
+        </div>
+        <div class="form-group">
+          <label>Dirección (Opcional)</label>
+          <input type="text" id="checkout-address" placeholder="Ej. Av. Siempre Viva 123">
+        </div>
+        <div style="margin-top:1.5rem; display:flex; gap:1rem;">
+          <button type="button" onclick="closeModal('checkout-modal')" class="btn btn-outline"
+            style="flex:1">Cancelar</button>
+          <button type="submit" class="btn btn-primary" style="flex:1">Finalizar Compra</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Template -->
   <template id="menu-card-tpl">
     <div class="menu-card">
