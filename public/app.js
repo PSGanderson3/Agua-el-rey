@@ -7,7 +7,9 @@ const state = {
   currentUser: null, // null or 'admin'
   reservations: [], // list of reservation objects
   reviews: [], // list of review objects
-  promotions: [] // list of active promotions
+  reviews: [], // list of review objects
+  promotions: [], // list of active promotions
+  editingProductIndex: null // Track which product is being edited
 };
 
 const $ = (s) => document.querySelector(s);
@@ -18,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadMenu();
   loadPromotions();
   setupSlider();
+  setupGallery(); // New Gallery
   setupInteractions();
   setupAdmin();
 });
@@ -72,16 +75,112 @@ function savePromotions() {
   if (state.currentUser === 'admin') renderAdminPromos();
 }
 
+// --- GALLERY SECTION ---
+function setupGallery() {
+  const track = $('.gallery-track');
+  const slides = $all('.gallery-slide');
+  const prevBtn = $('#gallery-prev');
+  const nextBtn = $('#gallery-next');
+  const counter = $('.gallery-counter');
+  
+  if (!track || slides.length === 0) return;
+
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+
+  function updateGallery() {
+    // Move track
+    const amount = -(currentIndex * 100);
+    track.style.transform = `translateX(${amount}%)`;
+    
+    // Update counter
+    counter.textContent = `${currentIndex + 1} • ${totalSlides}`;
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateGallery();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateGallery();
+    });
+  }
+  
+  // Init
+  updateGallery();
+}
+
+// --- SLIDER ---
 // --- SLIDER ---
 function setupSlider() {
   const slides = $all('.slide');
+  const dotsContainer = $('.slider-dots');
+  const prevBtn = $('.prev-btn');
+  const nextBtn = $('.next-btn');
+  
   if (slides.length === 0) return;
+  
   let current = 0;
-  setInterval(() => {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
-  }, 5000);
+  let timer;
+
+  // Create Dots
+  slides.forEach((_, idx) => {
+    const dot = document.createElement('div');
+    dot.className = `dot ${idx === 0 ? 'active' : ''}`;
+    dot.addEventListener('click', () => goToSlide(idx));
+    dotsContainer.appendChild(dot);
+  });
+  
+  const dots = $all('.dot');
+
+  function updateSlider() {
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === current);
+    });
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function goToSlide(index) {
+    current = index;
+    if (current >= slides.length) current = 0;
+    if (current < 0) current = slides.length - 1;
+    updateSlider();
+    resetTimer();
+  }
+
+  function nextSlide() {
+    goToSlide(current + 1);
+  }
+
+  function prevSlide() {
+    goToSlide(current - 1);
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(nextSlide, 5000);
+  }
+
+  // Event Listeners
+  if (prevBtn) prevBtn.addEventListener('click', () => {
+    prevSlide();
+    resetTimer();
+  });
+  
+  if (nextBtn) nextBtn.addEventListener('click', () => {
+    nextSlide();
+    resetTimer();
+  });
+
+  // Init Timer
+  resetTimer();
 }
 
 // --- NAVIGATION & VIEWS ---
@@ -324,13 +423,14 @@ function finalizeOrder(customerData) {
   const comanda = { 
     id: 'CMD-' + Date.now().toString().slice(-6), 
     txId, 
-    items: state.cart.map(i => ({ name: i.name, qty: i.qty })), 
+    items: state.cart.map(i => ({ name: i.name, qty: i.qty, price: i.price })), 
+    total: total,
     status: 'pendiente', 
     time: new Date().toISOString(),
     customer: customerData
   };
 
-  state.transactions.unshift(tx);
+  // state.transactions.unshift(tx); // REMOVED: Transaction is now created only when order is ready
   state.comandas.push(comanda);
 
   // Show Ticket
@@ -437,10 +537,55 @@ function setupAdmin() {
     });
   });
   
+  // Helper: Process Image (File -> Base64 with Resize)
+  const processImageFile = (fileInput) => {
+    return new Promise((resolve, reject) => {
+      const file = fileInput.files[0];
+      if (!file) return resolve(null);
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          const MAX_SIZE = 400; // Limit size to save space
+
+          if (width > height) {
+            if (width > MAX_SIZE) {
+              height *= MAX_SIZE / width;
+              width = MAX_SIZE;
+            }
+          } else {
+            if (height > MAX_SIZE) {
+              width *= MAX_SIZE / height;
+              height = MAX_SIZE;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', 0.8));
+        };
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
   // Product Form
-  $('#product-form').addEventListener('submit', (e) => {
+  $('#product-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     
+    // Process Image
+    const imgData = await processImageFile($('#prod-img'));
+    const currentImg = state.editingProductIndex !== null ? state.menu[state.editingProductIndex].img : '../assets/water_bottle_premium.png';
+    const finalImg = imgData || currentImg;
+
     // Collect Tiers
     const tiers = [];
     for(let i=1; i<=3; i++) {
@@ -457,37 +602,61 @@ function setupAdmin() {
     }
 
     const newProd = {
-      code: 'P-' + Date.now(),
+      code: state.editingProductIndex !== null ? state.menu[state.editingProductIndex].code : 'P-' + Date.now(),
       name: $('#prod-name').value,
       desc: $('#prod-desc').value,
       price: parseFloat($('#prod-price').value),
-      img: $('#prod-img').value || '../assets/water_bottle_premium.png',
+      img: finalImg,
       tiers: tiers
     };
 
-    state.menu.push(newProd);
+    if (state.editingProductIndex !== null) {
+      // Update existing
+      state.menu[state.editingProductIndex] = newProd;
+      alert('Producto actualizado');
+      cancelEdit();
+    } else {
+      // Create new
+      state.menu.push(newProd);
+      alert('Producto guardado');
+      $('#product-form').reset();
+    }
+    
     saveMenu();
-    $('#product-form').reset();
-    alert('Producto guardado');
   });
 
+  // Cancel Edit Listener
+  $('#btn-cancel-edit').addEventListener('click', cancelEdit);
+
   // Promo Form
-  $('#promo-form').addEventListener('submit', (e) => {
+  $('#promo-form').addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    const imgData = await processImageFile($('#promo-img'));
+    const finalImg = imgData || null;
+
     const newPromo = {
       id: 'promo-' + Date.now(),
       title: $('#promo-title').value,
       desc: $('#promo-desc').value,
       price: parseFloat($('#promo-price').value),
       oldPrice: $('#promo-old-price').value ? parseFloat($('#promo-old-price').value) : null,
-      img: $('#promo-img').value || null,
+      img: finalImg,
       duration: $('#promo-duration').value
     };
     state.promotions.push(newPromo);
     savePromotions();
-    $('#promo-form').reset();
     alert('Promoción creada con éxito');
+    $('#promo-form').reset();
   });
+
+  // Filter listener
+  const filterSelect = $('#comandas-filter');
+  if (filterSelect) {
+    filterSelect.addEventListener('change', () => {
+      renderAdminComandas();
+    });
+  }
 }
 
 function renderAdminProducts() {
@@ -510,7 +679,10 @@ function renderAdminProducts() {
           <div style="font-size:0.8rem; color:#666;">S/ ${p.price.toFixed(2)} - ${p.tiers ? p.tiers.length + ' ofertas' : 'Sin ofertas'}</div>
         </div>
       </div>
-      <button class="btn btn-outline" style="color:red; border-color:red;" onclick="deleteProduct(${index})">Eliminar</button>
+      <div style="display:flex; gap:0.5rem;">
+        <button class="btn btn-outline" onclick="editProduct(${index})">Editar</button>
+        <button class="btn btn-outline" style="color:red; border-color:red;" onclick="deleteProduct(${index})">Eliminar</button>
+      </div>
     `;
     container.appendChild(div);
   });
@@ -521,6 +693,67 @@ window.deleteProduct = function(index) {
     state.menu.splice(index, 1);
     saveMenu();
   }
+};
+
+window.editProduct = function(index) {
+  const p = state.menu[index];
+  state.editingProductIndex = index;
+  
+  // Populate form
+  $('#prod-name').value = p.name;
+  $('#prod-desc').value = p.desc;
+  $('#prod-price').value = p.price;
+  // File input cannot be set value
+  
+  // Show current image preview
+  let preview = $('#prod-img-preview');
+  if (!preview) {
+    preview = document.createElement('img');
+    preview.id = 'prod-img-preview';
+    preview.style.width = '50px';
+    preview.style.height = '50px';
+    preview.style.objectFit = 'cover';
+    preview.style.marginTop = '0.5rem';
+    $('#prod-img').parentNode.appendChild(preview);
+  }
+  preview.src = p.img;
+  
+  // Clear tiers first
+  for(let i=1; i<=3; i++) {
+    $(`#tier${i}-label`).value = '';
+    $(`#tier${i}-price`).value = '';
+    $(`#tier${i}-old`).value = '';
+  }
+
+  // Populate tiers
+  if (p.tiers) {
+    p.tiers.forEach((t, i) => {
+      if (i < 3) {
+        $(`#tier${i+1}-label`).value = t.label;
+        $(`#tier${i+1}-price`).value = t.price;
+        if (t.oldPrice) $(`#tier${i+1}-old`).value = t.oldPrice;
+      }
+    });
+  }
+
+  // Update UI
+  $('#btn-save-prod').textContent = 'Actualizar Producto';
+  $('#btn-cancel-edit').classList.remove('hidden');
+  
+  // Scroll to form
+  $('#product-form').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.cancelEdit = function() {
+  state.editingProductIndex = null;
+  $('#product-form').reset();
+  
+  // Remove preview
+  const preview = $('#prod-img-preview');
+  if (preview) preview.remove();
+  
+  $('#btn-save-prod').textContent = 'Guardar Producto';
+  $('#btn-cancel-edit').classList.add('hidden');
 };
 
 function renderAdminCaja() {
@@ -546,15 +779,28 @@ function renderAdminCaja() {
 
 function renderAdminComandas() {
   const container = $('#admin-comandas');
-  if (state.comandas.length === 0) {
-    container.innerHTML = '<p>No hay comandas pendientes.</p>';
+  const filter = $('#comandas-filter') ? $('#comandas-filter').value : 'all';
+  
+  let list = state.comandas;
+  if (filter !== 'all') {
+    list = list.filter(c => c.status === filter);
+  }
+
+  if (list.length === 0) {
+    container.innerHTML = '<p>No hay comandas con este estado.</p>';
     return;
   }
-  container.innerHTML = state.comandas.map(c => `
-    <div style="background:white; padding:1rem; margin-bottom:1rem; border-radius:8px; border-left:4px solid ${c.status === 'listo' ? 'green' : 'orange'};">
+  
+  container.innerHTML = list.map(c => {
+    let statusColor = 'orange';
+    if (c.status === 'listo') statusColor = 'green';
+    if (c.status === 'cancelado') statusColor = 'red';
+
+    return `
+    <div style="background:white; padding:1rem; margin-bottom:1rem; border-radius:8px; border-left:4px solid ${statusColor};">
       <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
         <strong>${c.id}</strong>
-        <span style="text-transform:uppercase; font-size:0.8rem; font-weight:bold; color:${c.status === 'listo' ? 'green' : 'orange'}">${c.status}</span>
+        <span style="text-transform:uppercase; font-size:0.8rem; font-weight:bold; color:${statusColor}">${c.status}</span>
       </div>
       <div style="font-size:0.9rem; margin-bottom:0.5rem; padding-bottom:0.5rem; border-bottom:1px dashed #eee;">
         <strong>Cliente:</strong> ${c.customer ? c.customer.name : 'Anónimo'}<br>
@@ -562,9 +808,12 @@ function renderAdminComandas() {
          ${c.customer && c.customer.address ? `<br><strong>Dir:</strong> ${c.customer.address}` : ''}
       </div>
       <ul style="margin:0.5rem 0; padding-left:1.2rem;">${c.items.map(i => `<li>${i.name} x ${i.qty}</li>`).join('')}</ul>
-      ${c.status !== 'listo' ? `<button onclick="markReady('${c.id}')" class="btn btn-primary" style="padding:0.5rem; font-size:0.8rem; width:100%;">Marcar Listo</button>` : ''}
+      <div style="display:flex; gap:0.5rem;">
+        ${c.status === 'pendiente' ? `<button onclick="markReady('${c.id}')" class="btn btn-primary" style="padding:0.5rem; font-size:0.8rem; flex:1;">Marcar Listo</button>` : ''}
+        ${c.status === 'pendiente' ? `<button onclick="cancelOrder('${c.id}')" class="btn btn-outline" style="padding:0.5rem; font-size:0.8rem; flex:1; border-color:red; color:red;">Cancelar</button>` : ''}
+      </div>
     </div>
-  `).join('');
+  `}).join('');
 }
 
 function renderAdminPromos() {
@@ -588,7 +837,29 @@ window.markReady = (id) => {
   const c = state.comandas.find(x => x.id === id);
   if (c) {
     c.status = 'listo';
+    
+    // Create Transaction now that it is completed
+    const tx = { 
+      id: 'TX-' + Date.now().toString().slice(-6), 
+      items: c.items, 
+      total: c.total, 
+      date: new Date().toISOString(),
+      customer: c.customer 
+    };
+    state.transactions.unshift(tx);
+    
     renderAdminComandas();
+    renderAdminCaja(); // Update Caja view
+  }
+};
+
+window.cancelOrder = (id) => {
+  if (confirm('¿Seguro de cancelar este pedido?')) {
+    const c = state.comandas.find(x => x.id === id);
+    if (c) {
+      c.status = 'cancelado';
+      renderAdminComandas();
+    }
   }
 };
 
@@ -625,16 +896,34 @@ function setupInteractions() {
     });
   }
 
+  // Checkbox/Radio Logic for Reservation Product
+  const productOptions = document.querySelectorAll('.product-option');
+  if (productOptions.length > 0) {
+    productOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        // Clear all selected
+        productOptions.forEach(o => o.classList.remove('selected'));
+        // Select clicked
+        opt.classList.add('selected');
+        // Update hidden input
+        $('#res-product').value = opt.getAttribute('data-value');
+      });
+    });
+  }
+
   // Reservation form submit
   const reservationForm = $('#reservation-form');
   if (reservationForm) {
     reservationForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const res = {
-        name: $('#res-name').value,
+        product: $('#res-product').value,
+        qty: parseInt($('#res-qty').value, 10),
+        address: $('#res-address').value,
         date: $('#res-date').value,
         time: $('#res-time').value,
-        pax: parseInt($('#res-pax').value, 10)
+        phone: $('#res-phone').value,
+        name: $('#res-name').value
       };
       state.reservations.push(res);
       alert('Reserva confirmada');
@@ -687,8 +976,13 @@ function renderAdminReservas() {
   }
   container.innerHTML = state.reservations.map((r, idx) => `
     <div style='background:white; padding:1rem; margin-bottom:1rem; border-radius:8px; border:1px solid #eee;'>
-      <strong>Reserva #${idx + 1}</strong><br/>
-      ${r.name} - ${r.date} ${r.time} - ${r.pax} personas
+      <strong>Reserva #${idx + 1}</strong> <span style="font-size:0.8rem; color:#666;">(${r.date} ${r.time})</span><br/>
+      <div style="margin-top:0.5rem;">
+        <strong>Producto:</strong> ${r.product} x ${r.qty}<br>
+        <strong>Cliente:</strong> ${r.name}<br>
+        <strong>Teléfono:</strong> ${r.phone}<br>
+        <strong>Dirección:</strong> ${r.address}
+      </div>
     </div>`).join('');
 }
 

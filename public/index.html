@@ -6,7 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>El Rey — El Agua que Gobierna</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;600;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -16,16 +20,14 @@
     <header class="site-header">
       <div class="container header-inner">
         <div class="logo">
-          <!-- Placeholder for logo if needed, or just text -->
-          <h2 style="color:white; margin:0;">👑 El Rey</h2>
+          <img src="../assets/logo_rey.jpg" alt="El Rey Logo">
         </div>
         <nav class="nav-links">
-          <button onclick="scrollToSection('hero')">Inicio</button>
-          <button onclick="scrollToSection('nosotros')">Nosotros</button>
+          <a href="index.html#hero" style="text-decoration:none;"><button class="active">Inicio</button></a>
+          <a href="nosotros.html" style="text-decoration:none;"><button>Nosotros</button></a>
           <button onclick="scrollToSection('menu')">Productos</button>
           <button onclick="scrollToSection('reserva')">Compra</button>
-          <button onclick="scrollToSection('opiniones')">Opiniones</button>
-          <button onclick="scrollToSection('contacto')">Contacto</button>
+          <a href="contact.html" style="text-decoration:none;"><button>Contacto</button></a>
           <button id="btn-client-login">Admin</button>
         </nav>
       </div>
@@ -34,9 +36,10 @@
     <!-- Hero Section -->
     <div id="hero" class="hero-section">
       <div class="hero-slider">
-        <div class="slide active" style="background-image:url('../assets/hero_water_royal.png')"></div>
-        <div class="slide" style="background-image:url('../assets/hero_water_lifestyle.png')"></div>
-        <div class="slide" style="background-image:url('../assets/botellade8.5l.jpg')"></div>
+        <div class="slide" style="background-image:url('../assets/diseño1.jpg')"></div>
+        <div class="slide active" style="background-image:url('../assets/diseño2.png')"></div>
+        <div class="slide" style="background-image:url('../assets/diseño4.jpg')"></div>
+
       </div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
@@ -45,19 +48,14 @@
         <button class="btn btn-accent" onclick="scrollToSection('menu')"
           style="font-size:1.2rem; padding:1rem 2rem;">HAZ TU PEDIDO</button>
       </div>
-    </div>
 
-    <!-- Nosotros Section -->
-    <section id="nosotros" class="content-section blur-bg">
-      <div class="container">
-        <h2 class="section-title">👑 Nuestra Historia</h2>
-        <div style="text-align:center; max-width:800px; margin:0 auto; font-size:1.1rem; line-height:1.8;">
-          <p>En “El Rey”, no vendemos simple agua: vendemos pureza embotellada digna de la realeza.</p>
-          <p>Nacimos con la misión de ofrecer hidratación premium a todas las coronas sedientas del país.</p>
-          <p style="font-weight:bold; margin-top:1rem;">Si tienes boca, eres parte del reino.</p>
-        </div>
-      </div>
-    </section>
+      <!-- Navigation Controls -->
+      <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+      <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+
+      <!-- Dots Indicators -->
+      <div class="slider-dots"></div>
+    </div>
 
     <!-- Promociones Section -->
     <section id="promociones" class="content-section"
@@ -71,15 +69,108 @@
     </section>
 
     <!-- Menu Section -->
+    <section id="welcome" class="content-section welcome-section" style="padding-bottom: 2rem;">
+      <div class="container welcome-grid">
+        <div class="welcome-text">
+          <span class="welcome-badge">¡La Favorita del País!</span>
+          <h2 class="welcome-title">Bienvenidos</h2>
+          <h3 class="welcome-subtitle-text">Somos Calidad y Pureza desde 2023.</h3>
+          <p class="welcome-desc">
+            Nuestra agua pasa por un riguroso proceso de ósmosis inversa y ozonización para garantizar la máxima pureza.
+            Queremos que disfrutes de la hidratación perfecta, equilibrada y refrescante que tu cuerpo merece.
+            <br><br>
+            ~ Auténticamente El Rey.
+          </p>
+          <a href="nosotros.html" class="btn btn-primary" style="margin-top:1.5rem;">
+            Más Sobre Nosotros <i class="fas fa-arrow-right" style="margin-left:0.5rem;"></i>
+          </a>
+        </div>
+
+        <div class="welcome-images">
+          <div class="welcome-img-card img-1" style="background-image:url('../assets/Foto2.jpg')"></div>
+          <div class="welcome-img-card img-2" style="background-image:url('../assets/hero_water_lifestyle.png')"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
     <section id="menu" class="content-section">
       <div class="container">
         <h2 class="section-title">💧 Nuestros Productos</h2>
         <div id="menu-grid" class="menu-grid"></div>
       </div>
     </section>
+    <!-- Logo Slider Section -->
+    <section class="logo-slider">
+      <div class="slider-track">
+        <!-- Text Logos - Set 1 -->
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
 
-    <section class="parallax-section" style="background-image:url('../assets/botella de 8.5l.jpg')">
+        <!-- Text Logos - Set 2 (Duplicate) -->
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+
+        <!-- Text Logos - Set 3 (Safety Duplicate) -->
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+        <div class="slide-logo brand-text">Agua El Rey</div>
+      </div>
     </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+      <div class="gallery-container">
+        <div class="gallery-content">
+          <span class="gallery-label">En agua el rey</span>
+          <h2 class="gallery-title">tambien apoyamos <br> a <br> personas necesitadas</h2>
+
+          <div class="gallery-controls">
+            <span class="gallery-counter">1 • 6</span>
+            <div class="gallery-nav">
+              <button id="gallery-prev" class="gallery-btn"><i class="fas fa-arrow-left"></i></button>
+              <button id="gallery-next" class="gallery-btn"><i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-slider-wrapper">
+          <div class="gallery-track">
+            <!-- Images will be dynamic or hardcoded here -->
+            <div class="gallery-slide" style="background-image:url('../assets/ayuda2.jpg')"></div>
+            <div class="gallery-slide" style="background-image:url('../assets/ayuda1.jpg')"></div>
+            <div class="gallery-slide" style="background-image:url('../assets/ayuda3.jpg')"></div>
+            <div class="gallery-slide" style="background-image:url('../assets/ayuda4.jpg')"></div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
 
     <!-- Reserva Section -->
     <section id="reserva" class="content-section">
@@ -89,79 +180,94 @@
         <div class="form-card">
           <form id="reservation-form">
             <div class="form-group">
-              <label>Nombre Completo</label>
-              <input type="text" id="res-name" required>
+              <label>Selecciona tu Producto</label>
+              <!-- Hidden input to store value -->
+              <input type="hidden" id="res-product" value="Bidón 20L" required>
+
+              <div class="product-selector">
+                <div class="product-option selected" data-value="Bidón 20L">
+                  <i class="fas fa-wine-bottle"></i>
+                  <span class="product-option-title">Bidón 20L<br>El Rey</span>
+                </div>
+                <div class="product-option" data-value="Botella 10.6L">
+                  <i class="fas fa-bottle-water"></i>
+                  <span class="product-option-title">Botella 10.6L<br>El Emperador</span>
+                </div>
+                <div class="product-option" data-value="Botella 8.6L">
+                  <i class="fas fa-glass-water"></i>
+                  <span class="product-option-title">Botella 8.6L<br>El Príncipe</span>
+                </div>
+              </div>
             </div>
+
+            <div class="form-group">
+              <label>Cantidad</label>
+              <input type="number" id="res-qty" min="1" max="100" value="1" required>
+            </div>
+
+            <div class="form-group">
+              <label>Dirección de Entrega</label>
+              <input type="text" id="res-address" placeholder="Ej. Av. Siempre Viva 123" required>
+            </div>
+
             <div class="form-group">
               <label>Fecha de Entrega</label>
               <input type="date" id="res-date" required>
             </div>
+
             <div class="form-group">
-              <label>Hora Aproximada</label>
+              <label>Rango de Hora</label>
               <input type="time" id="res-time" required>
             </div>
+
             <div class="form-group">
-              <label>Cantidad de Productos</label>
-              <input type="number" id="res-pax" min="1" max="100" required>
+              <label>Teléfono (Obligatorio)</label>
+              <input type="tel" id="res-phone" placeholder="999 999 999" required>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%">Confirmar Pedido</button>
+
+            <div class="form-group">
+              <label>Nombre de Contacto</label>
+              <input type="text" id="res-name" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%">Reservar pedido 🟢</button>
           </form>
         </div>
       </div>
     </section>
 
-    <!-- Opiniones Section -->
-    <section id="opiniones" class="content-section">
-      <div class="container">
-        <h2 class="section-title">⭐ Lo que dice el Reino</h2>
-        <div id="reviews-list" class="reviews-grid"></div>
-        <div class="form-card" style="text-align:center;">
-          <h3>Déjanos tu opinión</h3>
-          <form id="review-form" style="margin-top:1rem;">
-            <div class="form-group">
-              <input type="text" id="rev-name" placeholder="Nombre" required>
-            </div>
-            <div class="form-group">
-              <textarea id="rev-text" placeholder="Comentario..." required></textarea>
-            </div>
-            <div class="form-group">
-              <label>Rating</label>
-              <select name="rating" required>
-                <option value="5">5 - Hidratación divina 👑💧</option>
-                <option value="4">4 - Muy refrescante</option>
-                <option value="3">3 - Cumple su función</option>
-                <option value="2">2 - Podría mejorar</option>
-                <option value="1">1 - No me gustó</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-outline">Publicar</button>
-          </form>
-        </div>
-      </div>
-    </section>
 
     <!-- Contacto Section (Footer) -->
-    <footer id="contacto" class="content-section">
-      <div class="container">
-        <h2 class="section-title">📞 Contáctanos</h2>
-        <div style="display:flex; flex-wrap:wrap; gap:2rem; justify-content:center;">
-          <div class="info-card" style="flex:1; min-width:300px; text-align:center;">
-            <h3>📍 Ubicación</h3>
-            <p>Av. Las Aguas Reales 123 – Lima</p>
-          </div>
-          <div class="info-card" style="flex:1; min-width:300px; text-align:center;">
-            <h3>📞 Teléfonos</h3>
-            <p>900 000 001 / 900 000 002</p>
-          </div>
-          <div class="info-card" style="flex:1; min-width:300px; text-align:center;">
-            <h3>🕒 Horarios</h3>
-            <p>Lunes a Domingo: 8:00 AM – 8:00 PM</p>
+    <footer id="contacto" class="footer">
+      <div class="container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:4rem; width:100%;">
+        <div class="footer-left">
+          <h3>AGUA EL REY</h3>
+
+          <div class="socials">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
           </div>
         </div>
-        <div style="text-align:center; margin-top:3rem; color:rgba(255,255,255,0.5); font-size:0.9rem;">
-          &copy; 2025 El Rey. Todos los derechos reservados.
+
+        <div class="footer-right">
+          <p><strong>Dirección:</strong> Jr. Los Sabores 123 – La Victoria</p>
+          <p><strong>Teléfono:</strong> 999 999 999</p>
+          <p><strong>Correo:</strong> contacto@mibarrunto.com</p>
+
+          <div class="payments">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Visa_2014_logo_detail.png" alt="Visa">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/PayPal_2014_logo.png" alt="PayPal">
+          </div>
         </div>
+      </div>
     </footer>
+
+    <div class="footer-bottom">
+      <p>© 2025 Mi Barrunto — Con corazón celeste (y buen ceviche).</p>
+    </div>
 
     <!-- Floating Cart -->
     <div style="position:fixed; bottom:2rem; right:2rem; z-index:90;">
@@ -206,6 +312,15 @@
         </div>
         <div id="view-comandas" class="hidden">
           <h2 style="margin-bottom:2rem;">Despacho de Pedidos</h2>
+          <div style="margin-bottom:1rem;">
+            <label for="comandas-filter" style="font-weight:bold; margin-right:0.5rem;">Filtrar por estado:</label>
+            <select id="comandas-filter" style="padding:0.5rem; border-radius:4px; border:1px solid #ccc;">
+              <option value="all">Todos</option>
+              <option value="pendiente">Pendientes</option>
+              <option value="listo">Realizados</option>
+              <option value="cancelado">Cancelados</option>
+            </select>
+          </div>
           <div id="admin-comandas"></div>
         </div>
         <div id="view-reservas" class="hidden">
@@ -229,7 +344,9 @@
                   <input type="number" id="prod-price" placeholder="Precio Unidad (S/)" step="0.10" required>
                 </div>
                 <div class="form-group">
-                  <input type="text" id="prod-img" placeholder="URL Imagen (opcional)">
+                  <label for="prod-img" style="margin-bottom:0.5rem; display:block;">Imagen del Producto</label>
+                  <input type="file" id="prod-img" accept="image/*">
+                  <small style="color:#666;">Se recomienda usar imágenes pequeñas.</small>
                 </div>
 
                 <!-- Tiers -->
@@ -262,7 +379,12 @@
                 </div>
 
               </div>
-              <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Guardar Producto</button>
+              <div style="display:flex; gap:1rem; margin-top:1rem;">
+                <button type="submit" class="btn btn-primary" id="btn-save-prod" style="flex:1">Guardar
+                  Producto</button>
+                <button type="button" id="btn-cancel-edit" class="btn btn-outline hidden"
+                  style="flex:1; border-color:red; color:red;">Cancelar Edición</button>
+              </div>
             </form>
           </div>
           <div id="admin-products-list"></div>
@@ -287,7 +409,8 @@
                   <input type="number" id="promo-old-price" placeholder="Precio Normal (S/)" step="0.10">
                 </div>
                 <div class="form-group">
-                  <input type="text" id="promo-img" placeholder="URL Imagen (opcional)">
+                  <label for="promo-img" style="margin-bottom:0.5rem; display:block;">Imagen de Promoción</label>
+                  <input type="file" id="promo-img" accept="image/*">
                 </div>
                 <div class="form-group">
                   <input type="text" id="promo-duration" placeholder="Duración (ej. Solo por esta semana)" required>

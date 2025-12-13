@@ -1,10 +1,11 @@
 [
+ 
   {
     "code": "W5",
     "name": "Botella 8.5L",
     "desc": "El Príncipe - Nobleza y frescura en cada gota.",
     "price": 5.00,
-    "img": "../assets/botellade 8.5l .jpg",
+    "img": "../assets/8.5.png",
     "tiers": [
       {
         "id": "t4",
@@ -31,7 +32,7 @@
     "name": "Botella 10.5L",
     "desc": "El Emperador - La máxima autoridad de la hidratación.",
     "price": 6.00,
-    "img": "../assets/botella de 8.5l.jpg",
+    "img": "../assets/10.5.png",
     "tiers": [
       {
         "id": "t1",
@@ -50,6 +51,21 @@
         "label": "Pack Mayorista (30 Und)",
         "price": 100.00,
         "oldPrice": 180.00
+      }
+    ]
+  },
+   {
+    "code": "W7",
+    "name": "Bidón 20L",
+    "desc": "El Rey - La máxima autoridad en hidratación.",
+    "price": 12.00,
+    "img": "../assets/bidon.png",
+    "tiers": [
+      {
+        "id": "t7",
+        "label": "Pack 10 + 1 Gratis",
+        "price": 120.00,
+        "oldPrice": 132.00
       }
     ]
   }
