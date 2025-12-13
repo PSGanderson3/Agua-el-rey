@@ -46,7 +46,7 @@ function loadPromotions() {
         id: 'promo-10.5',
         title: '👑 Bidón 10.5L - El Emperador',
         desc: 'Ofertas imperiales para la máxima hidratación.',
-        img: '../assets/water_bottle_premium.png',
+        img: 'assets/water_bottle_premium.png',
         tiers: [
           { id: 't1', label: 'Pack 10 + 1 Gratis', price: 45.00, oldPrice: 66.00 },
           { id: 't2', label: 'Pack 20 + 2 Gratis', price: 90.00, oldPrice: 132.00 },
@@ -57,7 +57,7 @@ function loadPromotions() {
         id: 'promo-8.5',
         title: '🛡️ Bidón 8.5L - El Príncipe',
         desc: 'Nobleza y frescura en packs de ahorro.',
-        img: '../assets/water_bottle_premium.png',
+        img: 'assets/water_bottle_premium.png',
         tiers: [
           { id: 't4', label: 'Pack 10 + 1 Gratis', price: 35.00, oldPrice: 55.00 },
           { id: 't5', label: 'Pack 20 + 2 Gratis', price: 60.00, oldPrice: 110.00 },
@@ -583,7 +583,7 @@ function setupAdmin() {
     
     // Process Image
     const imgData = await processImageFile($('#prod-img'));
-    const currentImg = state.editingProductIndex !== null ? state.menu[state.editingProductIndex].img : '../assets/water_bottle_premium.png';
+    const currentImg = state.editingProductIndex !== null ? state.menu[state.editingProductIndex].img : 'assets/water_bottle_premium.png';
     const finalImg = imgData || currentImg;
 
     // Collect Tiers
