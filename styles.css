@@ -208,6 +208,63 @@ body {
   color: var(--accent);
 }
 
+/* Mobile Menu Button - Hidden by default on desktop */
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  z-index: 101;
+}
+
+.mobile-menu-btn span {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 70%;
+    background: var(--primary-dark);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    z-index: 99;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links a,
+  .nav-links button {
+    margin: 1.5rem 0;
+    font-size: 1.2rem;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
 #btn-client-login {
   color: white;
   font-weight: 700;
@@ -1480,7 +1537,7 @@ body {
 }
 
 /* Remove Pause on hover per user request */
-/* .logo-slider:hover .slider-track { animation-play-state: paused; } */ 
+/* .logo-slider:hover .slider-track { animation-play-state: paused; } */
 /* Product Selector Redesign */
 .product-selector {
   display: grid;
@@ -1538,3 +1595,110 @@ body {
   color: var(--primary);
 }
 
+/* --- RESPONSIVE ADMIN DESIGN --- */
+@media (max-width: 768px) {
+
+  /* Admin Login */
+  .login-box {
+    padding: 2rem;
+    width: 90%;
+    max-width: 100%;
+  }
+
+  /* Admin Dashboard Layout */
+  .admin-layout {
+    grid-template-columns: 1fr;
+    /* Stack sidebar and content */
+    min-height: auto;
+  }
+
+  .sidebar {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar h3 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .sidebar button {
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  /* Content Area */
+  .admin-content {
+    padding: 1.5rem;
+  }
+
+  /* Forms in Admin */
+  .form-card {
+    padding: 1.5rem;
+  }
+
+  /* Force grid forms to single column */
+  #product-form>div,
+  #promo-form>div {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Tiered Pricing inputs in Product Form */
+  .form-group[style*="display:flex"],
+  div[style*="grid-column: span 2"]+.form-group[style="display:flex; gap:0.5rem;"],
+  .form-group[style="display:flex; gap:0.5rem;"] {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    /* keep side by side if small enough, or stack? */
+    gap: 0.5rem;
+  }
+
+  /* Make sure inputs inside those flex groups don't overflow */
+  .form-group[style*="display:flex"] input {
+    width: 100%;
+  }
+
+  /* Admin Product List Items */
+  #admin-products-list .receipt {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  #admin-products-list .receipt>div {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #admin-products-list .receipt img {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* Admin Transactions & Comandas */
+  #admin-transactions>div,
+  #admin-comandas>div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Modals */
+  .receipt {
+    width: 90%;
+    /* Fullish width on mobile */
+    max-width: 400px;
+    padding: 1.5rem;
+  }
+
+  /* Fix for sidebar buttons interaction */
+  .sidebar button:hover,
+  .sidebar button.active {
+    transform: none;
+    /* remove shift on mobile */
+    background: rgba(255, 255, 255, 0.1);
+  }
+}

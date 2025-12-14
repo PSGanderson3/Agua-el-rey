@@ -1,0 +1,800 @@
+/* styles.css - Mi Barrunto Premium Purple Theme */
+:root {
+    /* Core Colors */
+    --primary: #68178d;
+    --primary-dark: #4a0f65;
+    --primary-light: #8e3bb5;
+    --secondary: #1a0525;
+    /* Very dark purple/black */
+    --accent: #ffd700;
+    /* Gold for premium touches */
+
+    /* Backgrounds */
+    --bg-body: #f8f5fa;
+    --bg-card: #ffffff;
+    --bg-glass: rgba(255, 255, 255, 0.9);
+
+    /* Text */
+    --text-main: #1a0525;
+    --text-muted: #666666;
+    --text-light: #ffffff;
+
+    /* UI Elements */
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --shadow-sm: 0 4px 12px rgba(104, 23, 141, 0.08);
+    --shadow-md: 0 8px 24px rgba(104, 23, 141, 0.15);
+    --shadow-lg: 0 15px 40px rgba(104, 23, 141, 0.25);
+    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(104, 23, 141, 0.9) 0%, rgba(26, 5, 37, 0.8) 100%);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* Layout Utilities */
+.hidden {
+    display: none !important;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.8rem 1.8rem;
+    border: none;
+    border-radius: 50px;
+    /* Pill shape for modern look */
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: var(--text-light);
+    box-shadow: 0 4px 15px rgba(104, 23, 141, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(104, 23, 141, 0.4);
+}
+
+.btn-accent {
+    background: var(--text-light);
+    color: var(--primary);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-accent:hover {
+    background: var(--accent);
+    color: var(--secondary);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: var(--text-light);
+}
+
+.promo-badge {
+    background: var(--accent);
+    color: var(--secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiered Promos */
+.promo-tiers {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tier-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.tier-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.tier-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+.tier-price-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tier-old-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.8rem;
+}
+
+.tier-price {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.tier-btn {
+    padding: 0.3rem 0.8rem !important;
+    font-size: 0.8rem !important;
+    min-width: auto !important;
+}
+
+/* Header */
+.site-header {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-md);
+    border-bottom: none;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+    padding: 2px;
+}
+
+.nav-links button {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.9);
+    margin-left: 1.5rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links button:hover,
+.nav-links button.active {
+    color: var(--accent);
+}
+
+/* Mobile Menu Button - Hidden by default on desktop */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    z-index: 101;
+}
+
+.mobile-menu-btn span {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        background: var(--primary-dark);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.3s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        padding: 2rem;
+        z-index: 99;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a,
+    .nav-links button {
+        margin: 1.5rem 0;
+        font-size: 1.2rem;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+#btn-client-login {
+    color: white;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+#btn-client-login:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+}
+
+/* ... (Hero Section remains the same) ... */
+
+/* Contacto / Footer */
+#contacto {
+    background: var(--secondary);
+    color: white;
+    padding: 4rem 0;
+    margin-top: 0;
+}
+
+#contacto .section-title {
+    color: white;
+}
+
+#contacto .section-title::after {
+    background: var(--accent);
+}
+
+#contacto .info-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 4px solid var(--accent);
+}
+
+#contacto .info-card h3 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+#contacto .info-card p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Hero Section */
+.hero-section {
+    height: 60vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.hero-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+/* Slider Dots and Controls */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.slider-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+    left: 2rem;
+}
+
+.next-btn {
+    right: 2rem;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.8rem;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.dot.active {
+    background: var(--accent);
+    transform: scale(1.2);
+    border-color: var(--accent);
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 1;
+    /* Ensure active slide is above others but below overlays */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(26, 5, 37, 0.4) 0%, rgba(26, 5, 37, 0.8) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding: 2rem;
+}
+
+.hero-title {
+    font-size: 5.5rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    background: linear-gradient(to right, #fff, #e0c3fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.hero-subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Sections */
+.section-title {
+    text-align: center;
+    color: var(--secondary);
+    margin-bottom: 3.5rem;
+    font-size: 2.8rem;
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--primary);
+    margin: 1rem auto 0;
+    border-radius: 2px;
+}
+
+.content-section {
+    padding: 6rem 0;
+    background: white;
+}
+
+.content-section:nth-child(even) {
+    background: var(--bg-body);
+}
+
+/* Menu Grid */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.menu-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.menu-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.menu-img {
+    height: 240px;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--primary-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-img::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+}
+
+.menu-body {
+    padding: 2rem;
+}
+
+.menu-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+}
+
+.menu-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.menu-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.menu-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+/* Forms */
+.form-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border-top: 5px solid var(--primary);
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 1.2rem;
+    border: 2px solid #eee;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    background: #f9f9f9;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+}
+
+/* Reviews */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.review-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(104, 23, 141, 0.05);
+}
+
+.stars {
+    color: var(--accent);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+}
+
+.review-author {
+    font-weight: 700;
+    margin-top: 1.5rem;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+/* Admin Login */
+.login-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+}
+
+.login-box {
+    background: white;
+    padding: 4rem;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.login-box input {
+    width: 100%;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+    border: 2px solid #eee;
+    border-radius: var(--radius-md);
+}
+
+/* Admin Dashboard */
+.admin-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+}
+
+.sidebar {
+    background: var(--secondary);
+    color: white;
+    padding: 2.5rem;
+}
+
+.sidebar h3 {
+    margin-bottom: 3rem;
+    color: white;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.sidebar button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 1.2rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background: var(--primary);
+    color: white;
+    transform: translateX(5px);
+}
+
+.admin-content {
+    padding: 3rem;
+    background: #f4f6f9;
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 5, 37, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.receipt {
+    background: #fff;
+    padding: 2.5rem;
+    width: 400px;
+    font-family: 'Courier New', monospace;
+    box-shadow: var(--shadow-lg);
+    border-top: 8px solid var(--primary);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.receipt-header {
+    text-align: center;
+    border-bottom: 2px dashed #ccc;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.receipt-total {
+    text-align: right;
+    font-weight: bold;
+    border-top: 2px dashed #ccc;
+    padding-top: 1.5rem;
+    font-size: 1.4rem;
+    color: var(--primary);
+}
+
+/* Parallax */
+.parallax-section {
+    background-image: url('assets/fondo-mariscos.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    min-height: 60vh;
+    position: relative;
+}
+
+.parallax-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(104, 23, 141, 0.3);
+}
+
+/* Footer Styles - Mi Barrunto Premium */
+.footer {
+    background: var(--secondary);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 5rem 0;
+    /* Padding on vertical only, container handles horizontal */
+    border-top: 4px solid var(--primary);
+    margin-top: 0;
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
+}
+
+.footer-left {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+    /* Center align content */

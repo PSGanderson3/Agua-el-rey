@@ -881,6 +881,23 @@ function setupInteractions() {
   // Changed listener from placeOrder to openCheckout
   $('#btn-place-order').addEventListener('click', openCheckout);
 
+  // Mobile Menu Toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  if (mobileMenuBtn && navLinks) {
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link (optional UX improvement)
+    navLinks.querySelectorAll('a, button').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  }
+
   // Checkout Form Listener
   const checkoutForm = $('#checkout-form');
   if (checkoutForm) {
