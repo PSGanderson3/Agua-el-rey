@@ -5,7 +5,7 @@
     "name": "Botella 8.5L",
     "desc": "El Príncipe - Nobleza y frescura en cada gota.",
     "price": 5.00,
-    "img": "assets/8.5.png",
+    "img": "/assets/8.5.png",
     "tiers": [
       {
         "id": "t4",
@@ -32,7 +32,7 @@
     "name": "Botella 10.5L",
     "desc": "El Emperador - La máxima autoridad de la hidratación.",
     "price": 6.00,
-    "img": "assets/10.5.png",
+    "img": "./assets/10.5.png",
     "tiers": [
       {
         "id": "t1",
@@ -56,10 +56,10 @@
   },
    {
     "code": "W7",
-    "name": "Bidón 20L",
+    "name": ".Bidón 20L",
     "desc": "El Rey - La máxima autoridad en hidratación.",
     "price": 12.00,
-    "img": "assets/bidon.png",
+    "img": "../assets/bidon.png",
     "tiers": [
       {
         "id": "t7",
