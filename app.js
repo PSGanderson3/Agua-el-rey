@@ -36,41 +36,18 @@ async function loadMenu() {
 }
 
 function loadPromotions() {
-  const stored = localStorage.getItem('mb_promotions_v3');
+  const stored = localStorage.getItem('mb_promotions_v4');
   if (stored) {
     state.promotions = JSON.parse(stored);
   } else {
-    // Default grouped offers
-    state.promotions = [
-      {
-        id: 'promo-10.5',
-        title: '👑 Bidón 10.5L - El Emperador',
-        desc: 'Ofertas imperiales para la máxima hidratación.',
-        img: 'assets/water_bottle_premium.png',
-        tiers: [
-          { id: 't1', label: 'Pack 10 + 1 Gratis', price: 45.00, oldPrice: 66.00 },
-          { id: 't2', label: 'Pack 20 + 2 Gratis', price: 90.00, oldPrice: 132.00 },
-          { id: 't3', label: 'Pack Mayorista (30 Und)', price: 100.00, oldPrice: 180.00 }
-        ]
-      },
-      {
-        id: 'promo-8.5',
-        title: '🛡️ Bidón 8.5L - El Príncipe',
-        desc: 'Nobleza y frescura en packs de ahorro.',
-        img: 'assets/water_bottle_premium.png',
-        tiers: [
-          { id: 't4', label: 'Pack 10 + 1 Gratis', price: 35.00, oldPrice: 55.00 },
-          { id: 't5', label: 'Pack 20 + 2 Gratis', price: 60.00, oldPrice: 110.00 },
-          { id: 't6', label: 'Pack Mayorista (30 Und)', price: 80.00, oldPrice: 150.00 }
-        ]
-      }
-    ];
+    // Default: Empieza vacio
+    state.promotions = [];
   }
   renderPromotions();
 }
 
 function savePromotions() {
-  localStorage.setItem('mb_promotions_v3', JSON.stringify(state.promotions));
+  localStorage.setItem('mb_promotions_v4', JSON.stringify(state.promotions));
   renderPromotions();
   if (state.currentUser === 'admin') renderAdminPromos();
 }
