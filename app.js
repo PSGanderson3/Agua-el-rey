@@ -204,7 +204,7 @@ function renderMenu() {
     }
 
     div.innerHTML = `
-      <div class="menu-img" style="background: url('${item.img}') center/cover no-repeat;"></div>
+      <div class="menu-img" style="background-image: url('${item.img}');"></div>
       <div class="menu-body">
         <h4 class="menu-title">${item.name}</h4>
         <p class="menu-desc">${item.desc}</p>
@@ -251,7 +251,7 @@ function renderPromotions() {
     div.style.border = '2px solid var(--accent)';
     
     const bgStyle = p.img 
-      ? `background: url('${p.img}') center/cover no-repeat;` 
+      ? `background-image: url('${p.img}');` 
       : `background: linear-gradient(135deg, var(--primary), var(--secondary));`;
       
     div.innerHTML = `

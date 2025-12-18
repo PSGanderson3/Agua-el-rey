@@ -511,7 +511,11 @@ body {
 
 .menu-img {
   height: 240px;
-  background: #f0f0f0;
+  background-color: #f0f0f0;
+  /* Use background-color separate from shorthand */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1597,6 +1601,58 @@ body {
 
 /* --- RESPONSIVE ADMIN DESIGN --- */
 @media (max-width: 768px) {
+
+  /* -- Mobile Product Grid Optimization -- */
+  .menu-grid {
+    grid-template-columns: 1fr;
+    /* 1 column for products */
+    gap: 1.5rem;
+  }
+
+  .menu-card {
+    border-radius: var(--radius-md);
+    /* Slightly smaller radius */
+  }
+
+  .menu-img {
+    height: 160px;
+    /* Smaller image area */
+    background-size: contain;
+    /* Show full image */
+    background-color: white;
+    /* Clean background for contain */
+  }
+
+  .menu-body {
+    padding: 1rem;
+    /* Less padding */
+  }
+
+  .menu-title {
+    font-size: 1.1rem;
+    /* Smaller title */
+  }
+
+  .menu-desc {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Limit lines if supported */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .menu-price {
+    font-size: 1.1rem;
+  }
+
+  .add-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
 
   /* Admin Login */
   .login-box {
