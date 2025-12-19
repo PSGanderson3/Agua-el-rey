@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Preguntas Frecuentes — El Rey</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/logo_rey.jpg" alt="El Rey Logo">
+                </a>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-links">
+                <a href="index.html#hero" style="text-decoration:none;"><button>Inicio</button></a>
+                <a href="nosotros.html" style="text-decoration:none;"><button>Nosotros</button></a>
+                <a href="index.html#menu" style="text-decoration:none;"><button>Productos</button></a>
+                <a href="index.html#reserva" style="text-decoration:none;"><button>Compra</button></a>
+                <a href="contact.html" style="text-decoration:none;"><button>Contacto</button></a>
+                <a href="preguntasfrecuentes.html" style="text-decoration:none;"><button class="active">Preguntas
+                        Frecuentes</button></a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- FAQ Hero -->
+    <div class="faq-hero">
+        <div class="container" style="text-align:center;">
+            <h1 class="faq-hero-title">Centro de Ayuda</h1>
+            <p class="faq-hero-subtitle">¿En qué podemos ayudarte hoy?</p>
+        </div>
+    </div>
+
+    <div class="container content-section" style="padding-top:2rem;">
+        <!-- Topic Cards -->
+        <h2 class="text-center" style="margin-bottom:2rem; color:var(--primary);">Explora por Temas</h2>
+        <div class="topic-cards-grid">
+            <div class="topic-card">
+                <div class="topic-icon"><i class="fas fa-sliders-h"></i></div>
+                <h3>Primeros Pasos</h3>
+                <p>Todo lo que necesitas saber para empezar tu pedido con El Rey.</p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-icon"><i class="fas fa-credit-card"></i></div>
+                <h3>Pagos y Facturación</h3>
+                <p>Métodos de pago aceptados, facturas y gestión de cuentas.</p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-icon"><i class="fas fa-cog"></i></div>
+                <h3>Problemas Técnicos</h3>
+                <p>¿Problemas con el dispensador? Encuentra soluciones rápidas.</p>
+            </div>
+        </div>
+
+        <!-- Featured Articles -->
+        <div class="featured-articles-section">
+            <h2 style="color:var(--primary); margin-bottom:1.5rem;">Artículos Destacados</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Cómo realizar un pedido por la web?</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Para realizar un pedido, simplemente navega a la sección de "Productos", selecciona el bidón
+                            de tu preferencia y haz clic en "Agregar". Luego, ve a "Ver Pedido", completa tus datos y
+                            confirma. ¡Así de fácil!</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Zonas de cobertura y tiempos de entrega</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Actualmente cubrimos toda el área metropolitana. Los pedidos realizados antes de las 12:00 PM
+                            se entregan el mismo día, mientras que los posteriores se programan para la mañana
+                            siguiente.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Política de devoluciones de envases</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Aceptamos el intercambio de envases de otras marcas siempre que estén en buen estado. Si no
+                            tienes envase, puedes adquirir uno nuevo en tu primer pedido.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Mantenimiento y limpieza de dispensadores</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Se recomienda limpiar el área de contacto del dispensador una vez por semana con una solución
+                            suave y realizar una limpieza profunda cada 3 meses para asegurar la máxima pureza.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>¿Ofrecen precios para mayoristas?</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>¡Sí! Contamos con planes especiales para empresas, oficinas y distribuidores. Por favor,
+                            contáctanos a través del botón de abajo para obtener una cotización personalizada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="faq-cta">
+            <h3>¿No encontraste lo que buscabas?</h3>
+            <p>Ponte en contacto con nuestro equipo para recibir ayuda personalizada.</p>
+            <a href="contact.html" class="btn btn-primary" style="margin-top:1rem;">CONTÁCTANOS</a>
+        </div>
+
+    </div>
+
+    <!-- Footer (Same as Index) -->
+    <footer class="footer">
+        <div class="container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:4rem; width:100%;">
+            <div class="footer-left">
+                <h3>AGUA EL REY</h3>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <p><strong>Dirección:</strong> Jr. Los Sabores 123 – La Victoria</p>
+                <p><strong>Teléfono:</strong> 999 999 999</p>
+                <p><strong>Correo:</strong> contacto@mibarrunto.com</p>
+                <div class="payments">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Visa_2014_logo_detail.png" alt="Visa">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/PayPal_2014_logo.png" alt="PayPal">
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <p>© 2025 El Rey — El Agua que Gobierna.</p>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const isActive = faqItem.classList.contains('active');
+
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Toggle current FAQ item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

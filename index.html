@@ -34,6 +34,7 @@
           <button onclick="scrollToSection('menu')">Productos</button>
           <button onclick="scrollToSection('reserva')">Compra</button>
           <a href="contact.html" style="text-decoration:none;"><button>Contacto</button></a>
+          <a href="preguntasfrecuentes.html" style="text-decoration:none;"><button>Preguntas Frecuentes</button></a>
           <button id="btn-client-login">Admin</button>
         </nav>
       </div>
@@ -45,14 +46,24 @@
         <div class="slide" style="background-image:url('assets/diseño1.jpg')"></div>
         <div class="slide active" style="background-image:url('assets/diseño2.png')"></div>
         <div class="slide" style="background-image:url('assets/diseño4.jpg')"></div>
-
       </div>
       <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1 class="hero-title">El Rey</h1>
-        <p class="hero-subtitle">El Agua que Gobierna la Hidratación</p>
-        <button class="btn btn-accent" onclick="scrollToSection('menu')"
-          style="font-size:1.2rem; padding:1rem 2rem;">HAZ TU PEDIDO</button>
+
+      <div class="container hero-container-wrapper">
+        <div class="hero-content hero-content-left">
+          <h2 class="hero-supra">CALIDAD Y PUREZA</h2>
+          <h1 class="hero-title-large">REACTIVA TU<br>HIDRATACIÓN<br>CON EL REY®</h1>
+
+          <div class="hero-buttons">
+            <button class="btn-hero-outline" onclick="scrollToSection('menu')">
+              Nuestros productos
+            </button>
+            <button class="btn-hero-solid" onclick="scrollToSection('reserva')">
+              <i class="fas fa-calculator"></i>
+              <span>SOLICITE UNA COTIZACIÓN</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Navigation Controls -->
